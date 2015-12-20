@@ -1,5 +1,6 @@
 package activity;
 
+import service.AutoUpdateService;
 import util.HttpCallbackListener;
 import util.HttpUtil;
 import util.Utility;
@@ -252,6 +253,7 @@ publishText.setText("Í¬²½Ê§°Ü");
 }
 
 
+
 private void showWeather() {
 
 SharedPreferences prefs = PreferenceManager.
@@ -274,5 +276,10 @@ weatherInfoLayout.setVisibility(View.VISIBLE);
 
 cityNameText.setVisibility(View.VISIBLE);
 
+Intent intent = new Intent(this, AutoUpdateService.class);
+
+startService(intent);
+
 }
+
 }
