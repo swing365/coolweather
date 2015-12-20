@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import db.CoolWeatherOpenHelper;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -26,9 +27,9 @@ private SQLiteDatabase db;
 
 private CoolWeatherDB(Context context) {
 
-CoolWeatherOpenHelper dbHelper = new CoolWeatherDB(context, DB_NAME, null, VERSION);
+	CoolWeatherOpenHelper dbHelper = new CoolWeatherOpenHelper(context,DB_NAME, null, VERSION);
 
-db = dbHelper.getWritableDatabase();
+			db = dbHelper.getWritableDatabase();
 
 }
 
