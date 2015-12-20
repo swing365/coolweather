@@ -17,6 +17,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -62,6 +63,8 @@ private Province selectedProvince;
 private City selectedCity;
 
 private int currentLevel;
+
+private boolean isFromWeatherActivity;
 
 private void queryProvinces() {
 
@@ -299,27 +302,6 @@ progressDialog.dismiss();
 
 
 
-@Override
-
-public void onBackPressed() {
-
-if (currentLevel == LEVEL_COUNTY) {
-
-queryCities();
-
-} else if (currentLevel == LEVEL_CITY) {
-
-queryProvinces();
-
-} else {
-
-finish();
-
-
-}
-
-}
-
 
 
 protected void onCreate(Bundle savedInstanceState) {
@@ -329,7 +311,7 @@ super.onCreate(savedInstanceState);
 SharedPreferences prefs = PreferenceManager.
 getDefaultSharedPreferences(this);
 
-if (prefs.getBoolean("city_selected", false)) {
+if (prefs.getBoolean("city_selected", false) && !isFromWeatherActivity){
 
 Intent intent = new Intent(this, WeatherActivity.class);
 
@@ -397,6 +379,34 @@ finish();
 });
 
 queryProvinces(); // 加载省级数据
+
+}
+
+
+public void onBackPressed() {
+
+if (currentLevel == LEVEL_COUNTY) {
+
+queryCities();
+
+} else if (currentLevel == LEVEL_CITY) {
+
+queryProvinces();
+
+} else {
+
+if (isFromWeatherActivity) {
+
+Intent intent = new Intent(this, WeatherActivity.class);
+
+startActivity(intent);
+
+}
+
+finish();
+
+
+}
 
 }
 }
